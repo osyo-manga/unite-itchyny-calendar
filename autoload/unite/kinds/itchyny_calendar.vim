@@ -6,7 +6,7 @@ set cpo&vim
 
 let s:kind = {
 \	"name" : "itchyny_calendar",
-\	"default_action" : "start_calendar",
+\	"default_action" : "open_calendar",
 \	"action_table" : {
 \		"open_calendar" : {
 \			"is_selectable" : 0,
