@@ -86,6 +86,62 @@ unlet s:source
 
 
 
+let s:source = {
+\	"name" : "itchyny/calendar/event/new",
+\	"action_table" : {
+\		"new_event" : {
+\			"is_selectable" : 0,
+\		},
+\	},
+\	"default_action" : "new_event"
+\}
+
+
+function! s:source.action_table.new_event.func(candidate)
+	let year = input("Year > ")
+	if year == ""
+		let year = strftime("%Y")
+	endif
+	let month = input("Month > ")
+	if month == ""
+		let month = "1"
+	endif
+	let day = input("Day > ")
+	execute "Calendar" year month day
+endfunction
+
+
+function! s:source.gather_candidates(args, context)
+	return [{
+\		"word" : "[new event]",
+\	}]
+endfunction
+
+let s:sources += [ s:source ]
+unlet s:source
+
+
+let s:source = {
+\	"name" : "itchyny/calendar/event/today",
+\}
+
+
+function! s:source.gather_candidates(args, context)
+	return [{
+\		"word" : "[today]",
+\		"source__itchyny_calendar_event" : {
+\			"ymd" : [strftime("%Y"), strftime("%m"), strftime("%d")]
+\		},
+\		"kind" : "itchyny_calendar",
+\		"default_action" : "open_calendar",
+\	}]
+endfunction
+
+let s:sources += [ s:source ]
+unlet s:source
+
+
+
 function! unite#sources#itchyny_calendar#define()
 	return s:sources
 endfunction
