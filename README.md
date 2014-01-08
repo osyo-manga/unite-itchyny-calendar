@@ -11,20 +11,24 @@
 
 ```vim
 " default 2000 ~ 2020 years.
-:Unite itchyny/calendar/event/all
+:Unite itchyny/calendar/events/all
 ```
 
 ####Events for any year.
 
 ```vim
 " This year.
-:Unite itchyny/calendar/event/year
+:Unite itchyny/calendar/events/year
 
 " 2013 year.
-:Unite itchyny/calendar/event/year:2013
+:Unite itchyny/calendar/events/year:2013
 ```
 
 
+####Events for any day.
 
-
+```vim
+" 2014-1-13 events.
+:Unite itchyny/calendar/events:2014:1:13
+```
 

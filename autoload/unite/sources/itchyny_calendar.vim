@@ -50,7 +50,7 @@ endfunction
 let s:sources = []
 
 let s:source = {
-\	"name" : "itchyny/calendar/event/all",
+\	"name" : "itchyny/calendar/events/all",
 \	"max_candidates" : 100,
 \}
 
@@ -70,7 +70,7 @@ unlet s:source
 
 
 let s:source = {
-\	"name" : "itchyny/calendar/event/year",
+\	"name" : "itchyny/calendar/events/year",
 \	"max_candidates" : 100,
 \}
 
@@ -92,7 +92,7 @@ unlet s:source
 
 
 let s:source = {
-\	"name" : "itchyny/calendar/event/new",
+\	"name" : "itchyny/calendar/events/new",
 \	"action_table" : {
 \		"new_event" : {
 \			"is_selectable" : 0,
@@ -127,7 +127,7 @@ unlet s:source
 
 
 let s:source = {
-\	"name" : "itchyny/calendar/event/today",
+\	"name" : "itchyny/calendar/events/today",
 \}
 
 
@@ -147,7 +147,7 @@ unlet s:source
 
 
 let s:source = {
-\	"name" : "itchyny/calendar/event",
+\	"name" : "itchyny/calendar/events",
 \	"max_candidates" : 100,
 \}
 
