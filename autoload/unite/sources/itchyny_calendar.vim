@@ -32,6 +32,12 @@ function! s:flatten_extend(list)
 endfunction
 
 
+function! s:get_day_events(year, month, day)
+	let month_events = calendar#event#new().get_events_one_month(a:year, a:month)
+	return get(get(month_events, printf("%02d-%02d-%02d", a:year, a:month, a:day), {}), "events", [])
+endfunction
+
+
 function! s:get_events(...)
 	let years  = get(a:, 1, copy(g:unite#sources#itchyny_calendar#default_year_range))
 	let months = get(a:, 2, range(1, 12))
@@ -39,7 +45,6 @@ function! s:get_events(...)
 	let events_dict = s:flatten_extend(events)
 	return s:flatten(map(items(events_dict), 'map(v:val[1].events, "[" . string(v:val[0]) . ", v:val]")'))
 endfunction
-
 
 
 let s:sources = []
@@ -140,6 +145,29 @@ endfunction
 let s:sources += [ s:source ]
 unlet s:source
 
+
+let s:source = {
+\	"name" : "itchyny/calendar/event",
+\	"max_candidates" : 100,
+\}
+
+
+function! s:source.gather_candidates(args, context)
+	let year  = get(a:args, 0, str2nr(strftime("%Y")))
+	let month = get(a:args, 1, str2nr(strftime("%m")))
+	let day   = get(a:args, 2, str2nr(strftime("%d")))
+	let events = s:get_day_events(year, month, day)
+	return map(events, '{
+\		"word" : v:val.summary,
+\		"source__itchyny_calendar_event" : v:val,
+\		"kind" : "itchyny_calendar",
+\		"default_action" : "open_calendar",
+\	}')
+endfunction
+
+
+let s:sources += [ s:source ]
+unlet s:source
 
 
 function! unite#sources#itchyny_calendar#define()
